@@ -77,7 +77,7 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
-        <!-- Swagger / OpenAPI (Spring Boot 3.x) -->
+        <!-- Swagger / OpenAPI (Spring Boot 3 compatible) -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
