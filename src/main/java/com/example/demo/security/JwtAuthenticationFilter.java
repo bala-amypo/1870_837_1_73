@@ -4,8 +4,10 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -30,22 +32,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = jwtTokenProvider.resolveToken(request);
 
         if (token != null && jwtTokenProvider.validateToken(token)) {
-            var authentication = jwtTokenProvider.getAuthentication(token);
-            authentication.setDetails(
-                new WebAuthenticationDetailsSource().buildDetails(request)
+
+            Authentication authentication = jwtTokenProvider.getAuthentication(token);
+
+            // ✅ FIX: cast to AbstractAuthenticationToken
+            AbstractAuthenticationToken authToken =
+                    (AbstractAuthenticationToken) authentication;
+
+            authToken.setDetails(
+                    new WebAuthenticationDetailsSource().buildDetails(request)
             );
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            SecurityContextHolder.getContext().setAuthentication(authToken);
         }
 
         filterChain.doFilter(request, response);
-    }
-
-    // 🔴 THIS METHOD MUST BE INSIDE THE CLASS
-    @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) {
-        String path = request.getServletPath();
-        return path.startsWith("/auth/")
-            || path.startsWith("/swagger-ui")
-            || path.startsWith("/v3/api-docs");
     }
 }
