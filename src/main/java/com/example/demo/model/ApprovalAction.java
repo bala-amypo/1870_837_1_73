@@ -1,36 +1,34 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "approval_actions")
 public class ApprovalAction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private Long requestId;
+
+    @Column(nullable = false)
     private Long approverId;
 
-    // MUST be named "level" for repository method
-    private Integer level;
+    @Column(nullable = false)
+    private Integer levelNumber;
 
-    private String action; // APPROVED / REJECTED
+    @Column(nullable = false)
+    private String action;
+
     private String comments;
-    private LocalDateTime actionDate;
 
-    // getters and setters
+    private LocalDateTime actionDate = LocalDateTime.now();
+
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getRequestId() {
@@ -49,12 +47,12 @@ public class ApprovalAction {
         this.approverId = approverId;
     }
 
-    public Integer getLevel() {
-        return level;
+    public Integer getLevelNumber() {
+        return levelNumber;
     }
 
-    public void setLevel(Integer level) {
-        this.level = level;
+    public void setLevelNumber(Integer levelNumber) {
+        this.levelNumber = levelNumber;
     }
 
     public String getAction() {
@@ -75,9 +73,5 @@ public class ApprovalAction {
 
     public LocalDateTime getActionDate() {
         return actionDate;
-    }
-
-    public void setActionDate(LocalDateTime actionDate) {
-        this.actionDate = actionDate;
     }
 }
