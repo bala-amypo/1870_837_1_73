@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.ApprovalRequest;
 import com.example.demo.service.ApprovalRequestService;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -16,12 +17,17 @@ public class ApprovalRequestController {
     }
 
     @PostMapping
-    public ApprovalRequest create(@RequestBody ApprovalRequest req) {
-        return service.createRequest(req);
+    public ApprovalRequest create(@RequestBody ApprovalRequest request) {
+        return service.createRequest(request);
     }
 
     @GetMapping
-    public List<ApprovalRequest> getAll() {
+    public List<ApprovalRequest> list(
+            @RequestParam(required = false) Long requesterId) {
+
+        if (requesterId != null) {
+            return service.getRequestsByRequester(requesterId);
+        }
         return service.getAllRequests();
     }
 }

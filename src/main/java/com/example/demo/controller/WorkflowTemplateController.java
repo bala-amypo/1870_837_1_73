@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.WorkflowTemplate;
 import com.example.demo.service.WorkflowTemplateService;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -22,17 +23,18 @@ public class WorkflowTemplateController {
 
     @GetMapping("/{id}")
     public WorkflowTemplate get(@PathVariable Long id) {
-        return service.getTemplateById(id);
+        return service.getTemplateById(id).orElse(null);
     }
 
     @GetMapping
-    public List<WorkflowTemplate> getAll() {
+    public List<WorkflowTemplate> list() {
         return service.getAllTemplates();
     }
 
     @PutMapping("/{id}")
-    public WorkflowTemplate update(@PathVariable Long id,
-                                   @RequestBody WorkflowTemplate t) {
+    public WorkflowTemplate update(
+            @PathVariable Long id,
+            @RequestBody WorkflowTemplate t) {
         return service.updateTemplate(id, t);
     }
 }

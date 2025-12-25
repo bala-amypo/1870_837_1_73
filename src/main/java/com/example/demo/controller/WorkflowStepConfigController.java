@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.WorkflowStepConfig;
 import com.example.demo.service.WorkflowStepConfigService;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -21,7 +22,7 @@ public class WorkflowStepConfigController {
     }
 
     @GetMapping("/template/{templateId}")
-    public List<WorkflowStepConfig> getSteps(@PathVariable Long templateId) {
+    public List<WorkflowStepConfig> list(@PathVariable Long templateId) {
         return service.getStepsForTemplate(templateId);
     }
 }

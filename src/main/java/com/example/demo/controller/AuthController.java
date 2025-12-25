@@ -1,43 +1,43 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.AuthRequest;
-import com.example.demo.dto.AuthResponse;
 import com.example.demo.dto.RegisterRequest;
 import com.example.demo.model.User;
 import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.UserService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
-@Tag(name = "Authentication")
 public class AuthController {
 
     private final UserService userService;
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenProvider tokenProvider;
 
     public AuthController(UserService userService,
-                          JwtTokenProvider jwtTokenProvider) {
+                          JwtTokenProvider tokenProvider) {
         this.userService = userService;
-        this.jwtTokenProvider = jwtTokenProvider;
+        this.tokenProvider = tokenProvider;
     }
 
-    // ✅ REGISTER
     @PostMapping("/register")
-    public User register(@RequestBody RegisterRequest request) {
-        User user = new User();
-        user.setUsername(request.getUsername());
-        user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
-        return userService.registerUser(user, request.getRole());
+    public User register(@RequestBody RegisterRequest req) {
+        User u = new User();
+        u.setUsername(req.getUsername());
+        u.setEmail(req.getEmail());
+        u.setPassword(req.getPassword());
+        return userService.registerUser(u, req.getRole());
     }
 
-    // ✅ LOGIN (CRITICAL FOR TESTS)
     @PostMapping("/login")
-    public AuthResponse login(@RequestBody AuthRequest request) {
-        User user = userService.findByUsername(request.getUsernameOrEmail());
-        String token = jwtTokenProvider.generateToken(user);
-        return new AuthResponse(token, user.getUsername(), user.getRoles());
+    public Map<String, String> login(@RequestBody AuthRequest req) {
+        User user = userService.findByUsername(req.getUsernameOrEmail());
+        String token = tokenProvider.generateToken(user);
+        Map<String, String> res = new HashMap<>();
+        res.put("token", token);
+        return res;
     }
 }
