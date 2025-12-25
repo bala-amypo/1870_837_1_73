@@ -8,8 +8,8 @@ import java.util.List;
 public interface ApprovalActionRepository
         extends JpaRepository<ApprovalAction, Long> {
 
-    List<ApprovalAction> findByLevelNumberAndAction(
-            Integer levelNumber,
+    List<ApprovalAction> findByLevelAndAction(
+            Integer level,
             String action
     );
 }
