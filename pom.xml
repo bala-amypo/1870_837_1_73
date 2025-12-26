@@ -113,6 +113,29 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-surefire-plugin</artifactId>
+    <version>3.2.5</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.9.0</version>
+        </dependency>
+    </dependencies>
+
+    <configuration>
+        <!-- Force TestNG -->
+        <testNGArtifactName>org.testng:testng</testNGArtifactName>
+
+        <!-- VERY IMPORTANT: Tell Maven where tests are -->
+        <includes>
+            <include>**/*Test.java</include>
+        </includes>
+    </configuration>
+</plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
