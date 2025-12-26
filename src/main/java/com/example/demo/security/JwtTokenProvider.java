@@ -17,7 +17,7 @@ public class JwtTokenProvider {
     public String generateToken(User user) {
 
         Map<String, Object> claims = new HashMap<>();
-        claims.put("userId", user.getId());       // 
+        claims.put("userId", user.getId());       // y
         claims.put("email", user.getEmail());     // 
         claims.put("roles", user.getRoles()
                 .stream()
@@ -44,23 +44,4 @@ public class JwtTokenProvider {
             return false;
         }
     }
-    public Long getUserIdFromToken(String token) {
-    Claims claims = Jwts.parserBuilder()
-            .setSigningKey(key)
-            .build()
-            .parseClaimsJws(token)
-            .getBody();
-
-    return claims.get("userId", Long.class);
-}
-
-public String getUsernameFromToken(String token) {
-    return Jwts.parserBuilder()
-            .setSigningKey(key)
-            .build()
-            .parseClaimsJws(token)
-            .getBody()
-            .getSubject();
-}
-
 }
