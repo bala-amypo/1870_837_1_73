@@ -38,7 +38,8 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.save(user);
     }
-    
+
+    @Override
     public boolean validatePassword(String raw, String encoded) {
         return passwordEncoder.matches(raw, encoded);
     }
