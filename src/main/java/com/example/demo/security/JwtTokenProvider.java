@@ -2,9 +2,7 @@ package com.example.demo.security;
 
 import com.example.demo.model.Role;
 import com.example.demo.model.User;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 
@@ -40,7 +38,20 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    // ✅ THIS METHOD WAS MISSING (CAUSE OF ERROR)
+    // ✅ REQUIRED BY FILTER
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+        } catch (JwtException | IllegalArgumentException e) {
+            return false;
+        }
+    }
+
+    // ✅ REQUIRED BY FILTER
     public Long getUserIdFromToken(String token) {
         return getAllClaims(token).get("userId", Long.class);
     }
