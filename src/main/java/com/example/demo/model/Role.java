@@ -1,32 +1,16 @@
-package com.example.demo.model;
-
-import jakarta.persistence.*;
-
 @Entity
-@Table(
-    name = "roles",
-    uniqueConstraints = {
-        @UniqueConstraint(columnNames = "name")
-    }
-)
+@Table(name = "roles")
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String name;
 
-    public Long getId() {
-        return id;
-    }
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users = new HashSet<>();
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    // getters & setters
 }
