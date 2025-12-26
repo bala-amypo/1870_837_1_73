@@ -31,7 +31,7 @@ public class AuthController {
         User user = userService.findByUsername(username);
 
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new RuntimeException("Invalid username or password");
+            throw new RuntimeException("Invalid credentials");
         }
 
         String token = jwtTokenProvider.generateToken(user);
