@@ -110,6 +110,31 @@
 
     <build>
         <plugins>
+            
+            <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-surefire-plugin</artifactId>
+    <version>3.2.5</version>
+
+    <dependencies>
+        <!-- Force TestNG provider -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.9.0</version>
+        </dependency>
+    </dependencies>
+
+    <configuration>
+        <!-- Disable JUnit Platform completely -->
+        <useJUnitPlatform>false</useJUnitPlatform>
+
+        <!-- Force TestNG -->
+        <suiteXmlFiles>
+            <suiteXmlFile>testng.xml</suiteXmlFile>
+        </suiteXmlFiles>
+    </configuration>
+</plugin>
 
             <!-- Spring Boot Plugin -->
             <plugin>
