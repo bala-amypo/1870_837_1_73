@@ -18,11 +18,80 @@ public class ApprovalRequest {
     private String requestPayloadJson;
 
     private String status;
-    private Integer currentLevel;
+
+    private int currentLevel;
+
     private LocalDateTime createdAt;
 
     private Long requesterId;
+
     private Long templateId;
 
-    // getters & setters
+    public ApprovalRequest() {}
+
+    // ===== GETTERS & SETTERS =====
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getRequestTitle() {
+        return requestTitle;
+    }
+
+    public void setRequestTitle(String requestTitle) {
+        this.requestTitle = requestTitle;
+    }
+
+    public String getRequestPayloadJson() {
+        return requestPayloadJson;
+    }
+
+    public void setRequestPayloadJson(String requestPayloadJson) {
+        this.requestPayloadJson = requestPayloadJson;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public void setCurrentLevel(int currentLevel) {
+        this.currentLevel = currentLevel;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Long getRequesterId() {
+        return requesterId;
+    }
+
+    public void setRequesterId(Long requesterId) {
+        this.requesterId = requesterId;
+    }
+
+    public Long getTemplateId() {
+        return templateId;
+    }
+
+    public void setTemplateId(Long templateId) {
+        this.templateId = templateId;
+    }
 }
