@@ -35,7 +35,7 @@ public class ApprovalRequestServiceImpl implements ApprovalRequestService {
         if (request.getStatus() == null) {
             request.setStatus("PENDING");
         }
-        if (request.getCurrentLevel() == null) {
+        if (request.getCurrentLevel() == 0) {
             request.setCurrentLevel(1);
         }
         return requestRepository.save(request);
