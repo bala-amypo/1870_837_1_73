@@ -1,13 +1,3 @@
-package com.example.demo.service.impl;
-
-import com.example.demo.model.Role;
-import com.example.demo.model.User;
-import com.example.demo.repository.RoleRepository;
-import com.example.demo.repository.UserRepository;
-import com.example.demo.service.UserService;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -25,7 +15,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User registerUser(User user, String roleName) {
-
         Role role = roleRepository.findByName(roleName)
                 .orElseGet(() -> {
                     Role r = new Role();
@@ -42,5 +31,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean validatePassword(String raw, String encoded) {
         return passwordEncoder.matches(raw, encoded);
+    }
+
+    @Override
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 }
